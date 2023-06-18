@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mouse Polling Rate Tester</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Fira Code', monospace;
+        background: rgb(8, 8, 8);
+        color: #ededed;
+      }
+
+      a, a:visited, a:hover {
+        color: rgb(103, 103, 255);
+      }
+
+      pre {
+        margin: 0;
+        border: 1px solid #ededed;
+        padding: 1rem;
+        border-radius: 5px;
+      }
+    </style>
+    <script src="./polling-rate-tester.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="./index.html">Polling-Rate Tester</a>
+        |
+        <a href="./dpi.html">DPI Tester</a>
+      </nav>
+      <h1>Mouse Polling-Rate Tester</h1>
+    </header>
+    <h2>Instructions</h2>
+    <pre>
+1. Click anywhere on the screen to begin testing.
+2. Move your cursor in small circles repeadetly.
+3. Click anywhere on the screen to end testing.
+
+For the best reuslts make sure...
+1. Ensure Hardware acceleration is turned ON in your Browser Settings.
+    </pre>
+    <h3 id="instruction">Click Anywhere To Begin</h3>
+    <div id="statistics">
+      FPS: 0 <br />
+      Polling Rate: 0hz <br />
+      Max Polling Rate: 0hz
+    </div>
+
+  </body>
+</html>
