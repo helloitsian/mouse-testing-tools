@@ -14,7 +14,11 @@ let maxPollingRate = 0;
 const onPointerMove = (e) => {
   var events = "getCoalescedEvents" in e ? e.getCoalescedEvents() : [e];
 
-  count += events.length;
+  count += events.filter((e) => {
+    return e.movementX || e.movementY;
+  }).length;
+
+  if (count * fps > 1000) console.log(events[0]);
 };
 
 const updateStatistics = ({ fps, averagePollingRate, maxPollingRate }) => {
@@ -36,7 +40,6 @@ const startRecording = () => {
     document.addEventListener("pointerrawupdate", onPointerMove);
   else document.addEventListener("pointermove", onPointerMove);
 
-  let fps = 0;
   let prevTime = performance.now();
 
   const loop = () => {
