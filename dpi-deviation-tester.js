@@ -1,6 +1,7 @@
 const RADIUS = 20;
 
-const input = document.getElementById("distanceInput");
+const dpiInput = document.getElementById("dpiInput");
+const distanceInput = document.getElementById("distanceInput");
 const statistics = document.getElementById("statistics");
 const canvas = document.getElementById("canvas");
 
@@ -11,11 +12,23 @@ let animation = null;
 
 let started = false;
 
-let distanceToTravel = "1";
+let distanceToTravel = 0;
 let x = 50;
 let y = 50;
 let pixelsTraveled = 0;
+let setDpi = 800;
 let dpi = 0;
+let dpiDeviation = 0;
+let dpiDeviationPercentage = 0;
+
+if (!localStorage.getItem("dpi")) localStorage.setItem("dpi", 800);
+if (!localStorage.getItem("distance")) localStorage.setItem("distance", 1);
+
+setDpi = parseInt(localStorage.getItem("dpi") || 0);
+distanceToTravel = parseInt(localStorage.getItem("distance") || 0);
+
+dpiInput.value = setDpi;
+distanceInput.value = distanceToTravel;
 
 // util
 function degToRad(degrees) {
@@ -25,20 +38,24 @@ function degToRad(degrees) {
 
 const updateStatistics = () => {
   statistics.innerHTML = `
-    Distance to Travel: ${
-      distanceToTravel.length > 0 ? distanceToTravel : "0"
-    } ${
-    parseInt(distanceToTravel) > 1 || distanceToTravel === "0"
-      ? "inches"
-      : "inch"
+    Distance to Travel: ${distanceToTravel > 0 ? distanceToTravel : "0"} ${
+    distanceToTravel > 1 || distanceToTravel === "0" ? "inches" : "inch"
   } <br/>
     Pixels Traveled: ${pixelsTraveled} <br/>
     Approximate DPI: ${dpi} <br/>
+    DPI Deviation: ${dpiDeviation} <br/>
+    DPI Deviation %: ${dpiDeviationPercentage}%
   `;
 };
 
+const onDPIChange = (e) => {
+  setDpi = parseInt(e.target.value);
+  localStorage.setItem("dpi", setDpi);
+};
+
 const onDistanceChange = (e) => {
-  distanceToTravel = e.target.value;
+  distanceToTravel = parseInt(e.target.value);
+  localStorage.setItem("distance", distanceToTravel);
   updateStatistics();
 };
 
@@ -46,7 +63,11 @@ const onPointerMove = (e) => {
   const events = "getCoalescedEvents" in e ? e.getCoalescedEvents() : [e];
 
   events.forEach((e) => (pixelsTraveled += e.movementX));
-  dpi = (pixelsTraveled * 2.54) / (distanceToTravel * 2.54);
+  dpi = Math.floor((pixelsTraveled * 2.54) / (distanceToTravel * 2.54));
+  dpiDeviation = dpi - setDpi;
+  dpiDeviationPercentage = Math.floor((dpiDeviation / setDpi) * 100);
+
+  console.log(dpi, setDpi, dpiDeviation);
 
   updateStatistics();
 
@@ -84,6 +105,9 @@ const lockChangeAlert = () => {
   } else {
     console.log("The pointer lock status is now unlocked");
     started = false;
+    x = 50;
+    y = 50;
+    canvasDraw();
     stopRecording();
   }
 };
@@ -115,4 +139,7 @@ const canvasDraw = () => {
 
 canvasDraw();
 
-input.addEventListener("input", onDistanceChange);
+distanceInput.addEventListener("input", onDistanceChange);
+dpiInput.addEventListener("input", onDPIChange);
+
+updateStatistics();

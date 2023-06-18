@@ -38,7 +38,7 @@
           alert("WARNING: Your browser does not support Raw Pointer Events. Please switch to a chromium based browser to increase data accuracy.");
       })()
     </script>
-    <script src="./dpi-tester.js" defer></script>
+    <script src="./dpi-deviation-tester.js" defer></script>
   </head>
 
   <body>
@@ -46,18 +46,19 @@
       <nav>
         <a href="./index.html">Polling-Rate Tester</a>
         |
-        <a href="./dpi.html">DPI Tester</a>
+        <a href="./dpi.html">DPI Deviation Tester</a>
       </nav>
-      <h1>DPI Tester</h1>
+      <h1>DPI Deviation Tester</h1>
     </header>
     <h2>Instructions</h2>
     <pre>
-1. Enter the distance you plan to travel into the "Distance" text input below.
-2. Lay a ruler down on a flat surface.
-3. Align the center of your mouse with the start of an inch value on the ruler.
-4. Click the black box below to lock your cursor into the tracker.
-5. Click again to begin testing.
-6. Using the ruler as a guide, move your mouse that exact distance you entered to the best of your ability.
+1. Enter the DPI your mouse is currently set to into the "Set DPI" text input below.
+2. Enter the distance you plan to travel into the "Distance" text input below.
+3. Lay a ruler down on a flat surface.
+4. Align the center of your mouse with the start of an inch value on the ruler.
+5. Click the black box below to lock your cursor into the tracker.
+6. Click again to begin testing.
+7. Using the ruler as a guide, move your mouse that exact distance you entered to the best of your ability.
 
 NOTE: To redo the test, YOU MUST REFRESH THE PAGE. This is to ensure the browser's mouse state is reset.
 
@@ -67,14 +68,20 @@ For most accurate results make sure...
 3. Ensure Hardware acceleration is turned ON in your Browser Settings.
     </pre>
     <br/>
+    <label for="dpi">
+      DPI
+      <input type="number" name="dpi" id="dpiInput" placeholder="800" value="800" />
+    </label>
+    <br/>
     <label for="distance">
       Distance (in Inches)
-      <input type="number" id="distanceInput" placeholder="1" value="1" />
+      <input type="number" name="distance" id="distanceInput" placeholder="1" value="1" />
     </label>
     <div id="statistics">
       Distance to Travel: 1 inch <br/>
       Pixels Traveled: 0 <br/>
       Approximate DPI: 0 <br/>
+      DPI Deviation %: 0% <br/>
     </div>
     <canvas id="canvas" width="640" height="360"></canvas>
   </body>
