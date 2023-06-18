@@ -44,7 +44,7 @@ const updateStatistics = () => {
     Pixels Traveled: ${pixelsTraveled} <br/>
     Approximate DPI: ${dpi} <br/>
     DPI Deviation: ${dpiDeviation} <br/>
-    DPI Deviation %: ${dpiDeviationPercentage}%
+    DPI Deviation %: ${dpiDeviationPercentage.toFixed(2)}%
   `;
 };
 
@@ -65,7 +65,7 @@ const onPointerMove = (e) => {
   events.forEach((e) => (pixelsTraveled += e.movementX));
   dpi = Math.floor((pixelsTraveled * 2.54) / (distanceToTravel * 2.54));
   dpiDeviation = dpi - setDpi;
-  dpiDeviationPercentage = Math.floor((dpiDeviation / setDpi) * 100);
+  dpiDeviationPercentage = (dpiDeviation / setDpi) * 100;
 
   updateStatistics();
 
