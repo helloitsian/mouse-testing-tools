@@ -67,8 +67,6 @@ const onPointerMove = (e) => {
   dpiDeviation = dpi - setDpi;
   dpiDeviationPercentage = Math.floor((dpiDeviation / setDpi) * 100);
 
-  console.log(dpi, setDpi, dpiDeviation);
-
   updateStatistics();
 
   // update mouse positioning state

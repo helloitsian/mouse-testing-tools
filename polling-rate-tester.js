@@ -55,7 +55,6 @@ const startRecording = () => {
     totalMoves += count;
 
     const pollingRate = count * fps;
-    console.log(count, fps, pollingRate);
     const averagePollingRate = Math.ceil((fps * totalMoves) / tick);
 
     maxPollingRate =
