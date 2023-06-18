@@ -32,7 +32,9 @@ const updateInstruction = (message) => {
 const startRecording = () => {
   updateInstruction("Click Anywhere To Stop");
 
-  document.addEventListener("pointermove", onPointerMove);
+  if (isRawSupported)
+    document.addEventListener("pointerrawupdate", onPointerMove);
+  else document.addEventListener("pointermove", onPointerMove);
 
   let fps = 0;
   let prevTime = performance.now();
@@ -73,7 +75,9 @@ const startRecording = () => {
 const stopRecording = () => {
   updateInstruction("Click Anywhere To Begin");
 
-  document.removeEventListener("pointermove", onPointerMove);
+  if (isRawSupported)
+    document.removeEventListener("pointerrawupdate", onPointerMove);
+  else document.removeEventListener("pointermove", onPointerMove);
 
   fps = 0;
   count = 0;

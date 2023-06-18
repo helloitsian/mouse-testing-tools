@@ -27,7 +27,18 @@
         border-radius: 5px;
       }
     </style>
+    <script src="./raw-supported.js"></script>
     <script src="./polling-rate-tester.js" defer></script>
+
+    <script>
+      let isRawSupported = true;
+      (async () => {
+        isRawSupported = await checkRawPointerEventsSupported();
+
+        if (!isRawSupported)
+          alert("WARNING: Your browser does not support Raw Pointer Events. Please switch to a chromium based browser to increase data accuracy.");
+      })()
+    </script>
   </head>
   <body>
     <header>

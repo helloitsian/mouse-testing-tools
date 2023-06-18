@@ -63,12 +63,17 @@ const onPointerMove = (e) => {
 };
 
 const startRecording = () => {
-  document.addEventListener("pointermove", onPointerMove);
+  if (isRawSupported)
+    document.addEventListener("pointerrawupdate", onPointerMove);
+  else document.addEventListener("pointermove", onPointerMove);
+
   console.log("Started recording...");
 };
 
 const stopRecording = () => {
-  document.removeEventListener("pointermove", onPointerMove);
+  if (isRawSupported)
+    document.removeEventListener("pointerrawupdate", onPointerMove);
+  else document.removeEventListener("pointermove", onPointerMove);
   console.log("Stopped recording...");
 };
 
