@@ -17,8 +17,6 @@ const onPointerMove = (e) => {
   count += events.filter((e) => {
     return e.movementX || e.movementY;
   }).length;
-
-  if (count * fps > 1000) console.log(events[0]);
 };
 
 const updateStatistics = ({ fps, averagePollingRate, maxPollingRate }) => {
